@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}| About{% endblock title %}
+
+{% block scripts %}
+
+{% endblock scripts %}
+
+{% block content %}
+
+<header class="bg-dark py-5">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center text-white">
+      <h1 class="display-4 fw-bolder">About Excession E-Commerce<br />and<br />Codemy Django Wednesdays</h1>
+      <p class="lead fw-normal text-white-50 mb-4">
+        Welcome to a Django e-commerce website built following a YouTube tutorial by codemy.com.
+      </p>
+        <p>
+          <a class="text-decoration-none text-white border rounded p-3" href="https://www.youtube.com/playlist?list=PLCC34OHNcOtpRfBYk-8y0GMO4i1p1zn50" target="_blank">Django Wednesdays</a>
+        </p>
+    </div>
+  </div>
+</header>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <p class="lead">Built with...</p>
+          <ul class="list-unstyled ms-4 mb-5">
+            <li>asgiref==3.7.2</li>
+            <li>astroid==2.15.6</li>
+            <li>black==23.7.0&nbsp; &#42;</li>
+            <li>click==8.1.6</li>
+            <li>Django==4.2.4</li>
+            <li>django-extensions==3.2.3</li>
+            <li>flake8==6.1.0&nbsp; &#42;</li>
+            <li>flake8-django==1.4&nbsp; &#42;</li>
+            <li>lazy-object-proxy==1.9.0</li>
+            <li>mccabe==0.7.0</li>
+            <li>mypy-extensions==1.0.0</li>
+            <li>packaging==23.1</li>
+            <li>pathspec==0.11.2</li>
+            <li>Pillow==10.0.0</li>
+            <li>platformdirs==3.10.0</li>
+            <li>pycodestyle==2.11.0</li>
+            <li>pyflakes==3.1.0</li>
+            <li>ruff==0.0.284&nbsp; &#42;</li>
+            <li>sqlparse==0.4.4</li>
+            <li>typing_extensions==4.7.1</li>
+            <li>tzdata==2023.3</li>
+            <li>wrapt==1.15.0</li>
+          </ul>
+          <p>&#42; <small>For development purposes only. Not required in production.</small></p>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

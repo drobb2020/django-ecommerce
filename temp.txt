@@ -1,0 +1,33 @@
+{% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Register</a>
+        </li>
+        {% endif %}
+
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST.get["username"]
+        password = request.POST.get["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Welcome to the store!")
+            return redirect("home")
+        else:
+            messages.success(request, "There was an error, please try again.")
+            return redirect("login")
+    else:
+        return render(request, "store/login.html")
+
+
+def logout_user(request):
+    logout(request)
+    messages.success(request, "You have logged out. See you next time!")
+    return redirect("login")

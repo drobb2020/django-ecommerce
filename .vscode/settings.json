@@ -1,0 +1,39 @@
+{
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "python.formatting.provider": "black",
+  "cSpell.words": [
+    "asgiref",
+    "autoslug",
+    "ccircle",
+    "Codemy",
+    "cpath",
+    "csvg",
+    "datetime",
+    "dropend",
+    "dropstart",
+    "dropup",
+    "ecom",
+    "ECOMMERCE",
+    "Excession",
+    "focusable",
+    "hompeage",
+    "hstack",
+    "mccabe",
+    "mypy",
+    "offcanvas",
+    "pathspec",
+    "platformdirs",
+    "pycodestyle",
+    "pyflakes",
+    "qcznj",
+    "sqlparse",
+    "ttfncav",
+    "tvrvps",
+    "tzdata",
+    "vstack",
+    "yikyu",
+    "zindex"
+  ]
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Codemy Ecommerce {% block title %}{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="author" content="David Robb" />
+        <meta name="description" content="Codemy.com Django Wednesdays Ecommerce project" />
+        <meta property="og:image" content="./assets/logo.png" />
+        <meta property="og:description" content="Codemy.com Django Wednesdays Ecommerce project" />
+        <meta property="og:title" content="Codemy.com Django Wednesdays Ecommerce project" />
+        <meta name="twitter:title" content="Django Wednesdays" />
+        <link rel="icon" href="{% static 'assets/favicon.ico' %}">
+        <!-- bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Fontawesome -->
+        <link rel="stylesheet" href="https://kit.fontawesome.com/231f655081.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
+        <script src="{% static 'js/scripts.js' %}" defer></script>
+        <script src="{% static 'js/main.js' %}" defer></script>
+    </head>
+    <body>
+        {% include "partials/navbar.html" %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-center mb-0 p-3" data-timeout=5000 role="alert">
+              <strong>{{ message }}</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        {% block content %}
+
+        {% endblock content %}
+        {% include "partials/footer.html" %}
+        <!-- Bootstrap5 Scripts -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+    </body>
+</html>

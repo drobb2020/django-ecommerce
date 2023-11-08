@@ -1,0 +1,55 @@
+{% extends 'base.html' %} 
+
+{% load static %} 
+{% block title %}| {{ product.name }}{% endblock title %} 
+
+{% block scripts %} 
+
+{% endblock scripts %} 
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card mb-3">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="{{ product.name }}" />
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">
+              {{ product.description }}
+            </p>
+            {% if product.is_sale %}
+              <div class="d-flex small text-warning mb-2">
+                <div class="bi-star-fill"></div>
+                &nbsp;&nbsp;Sale!&nbsp;&nbsp;
+                <div class="bi-star-fill"></div>
+              </div>
+              <strike style="color: red;">${{ product.price }}</strike>&nbsp;&nbsp;
+                <b>${{ product.sale_price }}</b>
+                <p class="card-text">Category: {{ product.category }}</p>
+            {% else %}
+            <p class="card-text">Category: {{ product.category }}</p>
+              <p class="card-text">
+                <small class="text-body-secondary">Price: ${{ product.price }}</small>
+              </p>
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <form class="ms-3">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" min="1" max="10">
+              </form>
+          </div>
+          <div class="ms-3 mb-3">
+              <a href="#" class="btn btn-secondary">Add to Cart</a>
+              <a href="#" class="btn btn-outline-secondary">Add to watch list</a>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock content %}
