@@ -1,0 +1,7 @@
+crispy-bootstrap5==2023.10
+Django==4.2.8
+django-autoslug==1.9.9
+django-cleanup==8.0.0
+django-crispy-forms==2.1
+django-extensions==3.2.3
+Pillow==10.1.0

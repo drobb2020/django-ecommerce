@@ -4,10 +4,6 @@
 
 {% block title %}| Cart{% endblock title %}
 
-{% block scripts %}
-
-{% endblock scripts %}
-
 {% block content %}
 
 <header class="bg-dark py-5 m-0">
@@ -15,10 +11,111 @@
       <div class="text-center text-white">
         <h1 class="display-4 fw-bolder">Shopping Cart</h1>
         <p class="lead fw-normal text-white-50 mb-0">
-          View your selected items in your cart.
+          View selected items in your cart.
         </p>
       </div>
     </div>
-  </header>
+</header>
+<div class="container mt-5 mb-5">
+  {% if cart_products %}
+    {% for product in cart_products %}
+    <div class="card mb-3 p-2" style="max-width: 750px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body -3">
+            <h5 class="card-title">{{ product.name }}</h5>
+            {% if product.is_sale %}
+              <strike style="color: red">${{ product.price }}</strike>&nbsp;&nbsp;
+              <b>${{ product.sale_price }}</b>
+            {% else %}
+              <p class="card-text">
+                <small class="text-body-secondary"
+                >Price: ${{ product.price }}</small>
+              </p>
+            {% endif %}
+            <div>
+              <div class="col-md-8 mt-2">Quantity: </div>
+                <div class="col-md-8">
+                  <select class="form-select" id="select{{ product.id }}" style="max-width: 12rem;">
+                    {% for key, value in quantities.items %}
+                      {% if key == product.id|slugify %}
+                        <option selected>
+                          {{ value }}
+                        </option>
+                      {% endif %}
+                    {% endfor %}
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
+            </div>
+          </div>
+          <div class="mb-2 px-3">
+            <a href="{% url 'home' %}" class="btn btn-secondary">Continue Shopping</a>
+            <button type="button" data-index="{{ product.id }}" class="btn btn-primary update-cart">Update</button>
+            <button type="button" data-index="{{ product.id }}" class="btn btn-danger delete-product">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+      <div class="card-header">
+        <h3>You don't have anything in your cart. Get shopping!</h3>
+      </div>
+  {% endif %}
+  </div>
+</div>
+<script>
+  // Check if add-cart button pressed
+  $(document).on("click", ".update-cart", function(e){
+    e.preventDefault();
+    var productid = $(this).data('index');
+
+    $.ajax({
+      type: "POST",
+      url: "{% url 'cart-update' %}",
+      data: {
+        product_id: $(this).data('index'),
+        product_qty: $('#select' + productid + ' option:selected').text(),
+        csrfmiddlewaretoken: "{{ csrf_token }}",
+        action: "post",
+      },
+      success: function(json){
+        // console.log(json);
+        // document.getElementById('cart_quantity').textContent = json.qty
+        location.reload();
+      },
+      error: function (xhr, errmsg, err) {},
+    });
+  });
+  // Remove item from cart
+  $(document).on("click", ".delete-product", function(e){
+    e.preventDefault();
+    // var productid = $(this).data('index');
+
+    $.ajax({
+      type: "POST",
+      url: "{% url 'cart-delete' %}",
+      data: {
+        product_id: $(this).data('index'),
+        csrfmiddlewaretoken: "{{ csrf_token }}",
+        action: "post",
+      },
+      success: function(json){
+        // console.log(json);
+        // document.getElementById('cart_quantity').textContent = json.qty
+        location.reload();
+      },
+      error: function (xhr, errmsg, err) {},
+    });
+  });
+</script>
 
 {% endblock content %}
