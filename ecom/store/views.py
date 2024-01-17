@@ -1,9 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 
-from .forms import SignUpForm
-from .models import Product, Category
+from .forms import SignUpForm, UpdateProfileForm
+from .models import Category, Product
 
 
 def home(request):
@@ -14,19 +15,19 @@ def home(request):
 
 def product(request, pk):
     product = Product.objects.get(id=pk)
-    context = {'product': product}
-    return render(request, 'store/product.html', context)
+    context = {"product": product}
+    return render(request, "store/product.html", context)
 
 
 def category(request, slug):
     try:
         category = Category.objects.get(slug=slug)
         products = Product.objects.filter(category=category)
-        context = {'products': products, 'category': category}
-        return render(request, 'store/category.html', context)
+        context = {"products": products, "category": category}
+        return render(request, "store/category.html", context)
     except:
         messages.success(request, "That category does not exist, try again.")
-        return redirect('home')
+        return redirect("home")
 
 
 def about(request):
@@ -76,9 +77,24 @@ def register_user(request):
         else:
             messages.error(
                 request,
-                "Oops something went wrong with your registration, please try again."
+                "Oops something went wrong with your registration, please try again.",
             )
             return redirect("register")
     else:
         context = {"form": form}
         return render(request, "store/register.html", context)
+
+
+def update_user(request):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        user_form = UpdateProfileForm(request.POST or None, instance=current_user)
+        if user_form.is_valid():
+            user_form.save()
+            login(request, current_user)
+            messages.success(request, "Your profile was updated successfully.")
+            return redirect("home")
+        return render(request, "store/update_user.html", {"user_form": user_form})
+    else:
+        messages.success(request, "Your must be authenticated to access this page!")
+        return redirect("home")
