@@ -8,7 +8,6 @@ from .models import Category, Customer, Order, Product, Profile
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
-        "id",
         "user",
         "date_modified",
         "phone",

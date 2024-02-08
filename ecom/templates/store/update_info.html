@@ -9,23 +9,23 @@
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
       <div class="text-center text-white">
-        <h1 class="display-4 fw-bolder">Profile</h1>
+        <h1 class="display-4 fw-bolder">Update Info</h1>
         <p class="lead fw-normal text-white-50 mb-4">
-          Update your account profile...
+          {{ user.username|title }} update your personal information...
         </p>
       </div>
     </div>
   </header>
   
+  <h2 class="fw-bold text-center mt-5">{{ user.first_name|title }} {{ user.last_name|title }} Information</h2>
   <div class="container mt-5">
     <div class="row align-items-center">
       <div class="col-md-6 offset-md-3">
-        <form method="POST" action="{% url 'update-user' %}">
+        <form method="POST" action="{% url 'update-user-info' %}">
           {% csrf_token %}
-          {{ user_form.as_p }}
-          <button type="submit" class="btn btn-success w-100 mt-5">Update Profile</button>
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-success w-100 mt-5">Update Your Information</button>
         </form>
-        <a href="{% url 'update_password' %}" class="btn btn-primary w-100 mt-3">Update your Password</a>
       </div>
     </div>
   </div>

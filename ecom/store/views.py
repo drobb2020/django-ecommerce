@@ -3,8 +3,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 
-from .forms import ChangePasswordForm, SignUpForm, UpdateProfileForm
-from .models import Category, Product
+from .forms import ChangePasswordForm, SignUpForm, UpdateProfileForm, UserInfoForm
+from .models import Category, Product, Profile
 
 
 def home(request):
@@ -72,8 +72,8 @@ def register_user(request):
             password = form.cleaned_data["password1"]
             user = authenticate(username=username, password=password)
             login(request, user)
-            messages.success(request, "Great, your account is successfully registered.")
-            return redirect("home")
+            messages.success(request, "Great, your account is successfully registered. Please complete your personal information.")
+            return redirect("update-user-info")
         else:
             messages.error(
                 request,
@@ -120,4 +120,20 @@ def update_password(request):
             return render(request, "store/update_password.html", context)
     else:
         messages.error(request, "You must be authenticated to access this page!")
+        return redirect("home")
+
+
+def update_info(request):
+    if request.user.is_authenticated:
+        current_user = Profile.objects.get(user__id=request.user.id)
+        form = UserInfoForm(request.POST or None, instance=current_user)
+
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, "Your information was updated successfully.")
+            return redirect("home")
+        return render(request, "store/update_info.html", {"form": form})
+    else:
+        messages.success(request, "You must be authenticated to access this page!")
         return redirect("home")
