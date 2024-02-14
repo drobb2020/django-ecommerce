@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.shortcuts import redirect, render
 
 from .forms import ChangePasswordForm, SignUpForm, UpdateProfileForm, UserInfoForm
@@ -25,7 +26,7 @@ def category(request, slug):
         products = Product.objects.filter(category=category)
         context = {"products": products, "category": category}
         return render(request, "store/category.html", context)
-    except:
+    except:  # noqa: E722
         messages.success(request, "That category does not exist, try again.")
         return redirect("home")
 
@@ -50,7 +51,7 @@ def login_user(request):
             messages.success(request, "You have been logged in. Welcome!")
             return redirect("home")
         else:
-            messages.warning(request, "There was an error, please try again.")
+            messages.error(request, "There was an error, please try again.")
             return redirect("login")
     else:
         return render(request, "store/login.html", {})
@@ -72,7 +73,10 @@ def register_user(request):
             password = form.cleaned_data["password1"]
             user = authenticate(username=username, password=password)
             login(request, user)
-            messages.success(request, "Great, your account is successfully registered. Please complete your personal information.")
+            messages.success(
+                request,
+                "Great, your account is successfully registered. Please complete your personal information.",
+            )
             return redirect("update-user-info")
         else:
             messages.error(
@@ -96,7 +100,7 @@ def update_user(request):
             return redirect("home")
         return render(request, "store/update_user.html", {"user_form": user_form})
     else:
-        messages.success(request, "You must be authenticated to access this page!")
+        messages.error(request, "You must be authenticated to access this page!")
         return redirect("home")
 
 
@@ -107,7 +111,9 @@ def update_password(request):
             form = ChangePasswordForm(current_user, request.POST)
             if form.is_valid():
                 form.save()
-                messages.success(request, "Your password has been updated. Enjoy your experience")
+                messages.success(
+                    request, "Your password has been updated. Enjoy your experience"
+                )
                 login(request, current_user)
                 return redirect("update-user")
             else:
@@ -135,5 +141,20 @@ def update_info(request):
             return redirect("home")
         return render(request, "store/update_info.html", {"form": form})
     else:
-        messages.success(request, "You must be authenticated to access this page!")
+        messages.info(request, "You must be authenticated to access this page!")
         return redirect("home")
+
+
+def search(request):
+    if request.method == "POST":
+        searched = request.POST["q"]
+        searched = Product.objects.filter(Q(name__icontains=searched) | Q(description__icontains=searched))
+        if not searched:
+            messages.info(request, "That product does not exist, please try again.")
+            return render(request, "store/search.html", {})
+        else:
+            context = {"searched": searched}
+            return render(request, "store/search.html", context)
+    else:
+        context = {}
+        return render(request, "store/search.html", context)
