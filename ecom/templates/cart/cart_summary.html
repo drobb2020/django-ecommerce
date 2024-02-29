@@ -65,7 +65,7 @@
       </div>
     </div>
     {% endfor %}
-    <h3>Total: ${{ totals }}</h3>
+    <h3 class="mb-5">Total: ${{ totals }}</h3>
 
   {% else %}
       <div class="card-header">
@@ -74,6 +74,7 @@
   {% endif %}
   </div>
 </div>
+
 <script>
   // Check if add-cart button pressed
   $(document).on("click", ".update-cart", function(e){
