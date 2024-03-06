@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     # Applications
     "store.apps.StoreConfig",
     "cart.apps.CartConfig",
+    "payment.apps.PaymentConfig",
     # Modules
     "django_extensions",
     "crispy_forms",
