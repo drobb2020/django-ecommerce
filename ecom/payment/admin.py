@@ -7,14 +7,14 @@ from .models import ShippingAddress
 @admin.register(ShippingAddress)
 class ShippingAddressAdmin(admin.ModelAdmin):
     list_display = (
-        'user',
-        'full_name',
-        'email',
-        'address1',
-        'address2',
-        'city',
-        'state',
-        'postal_code',
-        'country',
+        "user",
+        "full_name",
+        "email",
+        "address1",
+        "address2",
+        "city",
+        "state",
+        "postal_code",
+        "country",
     )
-    list_filter = ('user',)
+    list_filter = ("user",)

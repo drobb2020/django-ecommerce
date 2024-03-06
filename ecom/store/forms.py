@@ -161,7 +161,9 @@ class UserInfoForm(forms.ModelForm):
     )
     state = forms.CharField(
         label="",
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "State|Province"}),
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "State|Province"}
+        ),
         required=False,
     )
     zipcode = forms.CharField(

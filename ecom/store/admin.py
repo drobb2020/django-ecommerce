@@ -81,7 +81,7 @@ class UserAdmin(admin.ModelAdmin):
         "username",
         "first_name",
         "last_name",
-        "email",
+        "drobb2011",
     )
     inlines = [ProfileInline]
 
