@@ -1,0 +1,69 @@
+{% extends 'base.html' %} 
+
+{% load static %} 
+
+{% block title %}| Checkout{% endblock title %} 
+
+{% block content %}
+
+<header class="bg-dark py-5 m-0">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center text-white">
+      <h1 class="display-4 fw-bolder">Checkout</h1>
+      <p class="lead fw-normal text-white-50 mb-0">Review your order.</p>
+    </div>
+  </div>
+</header>
+
+<div class="container my-3">
+  <div class="row align-items-center">
+    <div class="col-md-6 offset-md-3">
+      <div class="card mb-5">
+        <div class="card-header">Order Summary</div>
+        <div class="card-body">
+          <div class="card-text mt-2">
+            {% for product in cart_products %}
+              {{ product.name }}:
+              {% if product.is_sale %}
+                ${{ product.sale_price }}
+              {% else %}
+                ${{ product.price }}
+              {% endif %}
+              <br />
+              <small>
+                Quantity:
+                {% for key, value in quantities.items %}
+                  {% if key == product.id|slugify %}
+                    {{ value }}
+                  {% endif %}
+                {% endfor %}
+              </small>
+            </div>
+            <br />
+            {% endfor %}
+            <strong class="px-3">Total: ${{ totals }}</strong>
+          <div>
+            <a href="{% url 'cart-summary' %}" class="btn btn-sm btn-outline-secondary mx-3 my-3">Update Items</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 offset-md-3">
+      <div class="card mb-3">
+        <div class="card-header">
+          Shipping Address
+        </div>
+        <div class="card-body">
+          {% csrf_token %}
+          {{ shipping_form.as_p }}
+
+        </div>
+      </div>
+      <div align="right">
+        <a href="#" class="btn btn-lg btn-secondary">Continue to Billing <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

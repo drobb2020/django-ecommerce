@@ -65,7 +65,10 @@
       </div>
     </div>
     {% endfor %}
-    <h3 class="mb-5">Total: ${{ totals }}</h3>
+    <div align="right">
+      <h3 class="mb-2">Total: ${{ totals }}</h3>
+      <a href="{% url 'checkout' %}" class="btn btn-success">Checkout</a>
+    </div>
 
   {% else %}
       <div class="card-header">

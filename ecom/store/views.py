@@ -1,11 +1,13 @@
 import json
 
+from cart.cart import Cart
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import redirect, render
-from cart.cart import Cart
+from payment.forms import ShippingForm
+from payment.models import ShippingAddress
 
 from .forms import ChangePasswordForm, SignUpForm, UpdateProfileForm, UserInfoForm
 from .models import Category, Product, Profile
@@ -142,14 +144,23 @@ def update_password(request):
 def update_info(request):
     if request.user.is_authenticated:
         current_user = Profile.objects.get(user__id=request.user.id)
+        shipping_user = ShippingAddress.objects.get(user__id=request.user.id)
         form = UserInfoForm(request.POST or None, instance=current_user)
+        shipping_form = ShippingForm(request.POST or None, instance=shipping_user)
 
-        if form.is_valid():
+        if form.is_valid() or shipping_form.is_valid():
             form.save()
+            shipping_form.save()
 
-            messages.success(request, "Your information was updated successfully.")
+            messages.success(
+                request, "Your Billing & Shipping information was updated successfully."
+            )
             return redirect("home")
-        return render(request, "store/update_info.html", {"form": form})
+        return render(
+            request,
+            "store/update_info.html",
+            {"form": form, "shipping_form": shipping_form},
+        )
     else:
         messages.info(request, "You must be authenticated to access this page!")
         return redirect("home")
@@ -158,7 +169,9 @@ def update_info(request):
 def search(request):
     if request.method == "POST":
         searched = request.POST["q"]
-        searched = Product.objects.filter(Q(name__icontains=searched) | Q(description__icontains=searched))
+        searched = Product.objects.filter(
+            Q(name__icontains=searched) | Q(description__icontains=searched)
+        )
         if not searched:
             messages.info(request, "That product does not exist, please try again.")
             return render(request, "store/search.html", {})

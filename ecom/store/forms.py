@@ -136,45 +136,45 @@ class ChangePasswordForm(SetPasswordForm):
 
 class UserInfoForm(forms.ModelForm):
     phone = forms.CharField(
-        label="",
+        label="Phone Number",
         widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Phone"}),
         required=False,
     )
     address1 = forms.CharField(
-        label="",
+        label="Address",
         widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": "Address 1"}
         ),
         required=False,
     )
     address2 = forms.CharField(
-        label="",
+        label="Address",
         widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": "Address 2"}
         ),
         required=False,
     )
     city = forms.CharField(
-        label="",
+        label="City",
         widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "City"}),
         required=False,
     )
     state = forms.CharField(
-        label="",
+        label="State | Province",
         widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": "State|Province"}
         ),
         required=False,
     )
     zipcode = forms.CharField(
-        label="",
+        label="Postal Code",
         widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": "Postal Code"}
         ),
         required=False,
     )
     country = forms.CharField(
-        label="",
+        label="Country",
         widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": "Country"}
         ),
