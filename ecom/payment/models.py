@@ -9,7 +9,7 @@ class ShippingAddress(models.Model):
     shipping_full_name = models.CharField(max_length=255)
     shipping_email = models.CharField(max_length=255)
     shipping_address1 = models.CharField(max_length=255)
-    shipping_address2 = models.CharField(max_length=255, null=True, blank=True)
+    shipping_address2 = models.CharField(max_length=255, default="", blank=True)
     shipping_city = models.CharField(max_length=255)
     shipping_state = models.CharField(max_length=255, blank=True, default="N/A")
     shipping_postal_code = models.CharField(max_length=20, blank=True, default="N/A")
