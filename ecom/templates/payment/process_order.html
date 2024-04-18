@@ -1,0 +1,92 @@
+{% extends 'base.html' %} 
+
+{% load static %} 
+
+{% block title %}| Payment{% endblock title %} 
+
+{% block content %}
+
+<header class="bg-dark py-5 m-0">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center text-white">
+      <h1 class="display-4 fw-bolder">Processing Order...</h1>
+      <p class="lead fw-normal text-white-50 mb-0">
+        Finalizing your purchase.
+      </p>
+    </div>
+  </div>
+</header>
+
+<div class="container my-3">
+    <div class="row align-items-center">
+      <div class="col-md-6 offset-md-3">
+        <div class="card">
+          <div class="card-header">Order Summary</div>
+          <div class="card-body">
+            <p class="card-text">
+              {% for product in cart_products %} 
+                {{ product.name }}: 
+                {% if product.is_sale %} 
+                  ${{ product.sale_price }} 
+                {% else %} 
+                  ${{ product.price }} 
+                {% endif %}
+              <br />
+              <small>
+                Quantity: 
+                {% for key, value in quantities.items %} 
+                  {% if key == product.id|slugify %} 
+                    {{ value }} 
+                  {% endif %} 
+                {% endfor %}
+              </small>
+            </p>
+            {% endfor %}
+          </div>
+          <div class="card-footer text-body-secondary">
+            <strong class="px-3">Total: ${{ totals }}</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 offset-md-3 mt-3">
+        <div class="card mb-3">
+          <div class="card-header">Shipping Address</div>
+          <div class="card-body">
+            <p class="m-0">
+              Name: <strong>{{ shipping_addr.shipping_full_name }}</strong>
+            </p>
+            <p class="m-0">Email: {{ shipping_addr.shipping_email }}</p>
+            <p class="m-0">Address1: {{ shipping_addr.shipping_address1 }}</p>
+            <p class="m-0">Address2: {{ shipping_addr.shipping_address2 }}</p>
+            <p class="m-0">City: {{ shipping_addr.shipping_city }}</p>
+            <p class="m-0">Sate | Province: {{ shipping_addr.shipping_state }}</p>
+            <p class="m-0">
+              Postal Code: {{ shipping_addr.shipping_postal_code }}
+            </p>
+            <p class="m-0">Country: {{ shipping_addr.shipping_country }}</p>
+            <div align="right">
+              <a href="{% url 'checkout' %}" class="btn btn-lg btn-secondary"
+                >Update Shipping <i class="fa-solid fa-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-6 offset-md-3 mt-3">
+        <div class="card mb-3">
+          <div class="card-header">Billing Address</div>
+          <div class="card-body">
+            <form method="POST" action="{% url 'process_order' %}">
+              {% csrf_token %} {{ billing_addr.as_p }}
+          </div>
+        </div>
+              <button type="submit" class="btn btn-success btn-lg w-100">
+                Place Order <i class="fa-regular fa-check"></i>
+              </button>
+            </form>
+      </div>
+    </div>
+  </div>
+
+  {% endblock content %}
