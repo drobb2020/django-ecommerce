@@ -2,6 +2,7 @@ from cart.cart import Cart
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
+from store.models import Product
 
 from .forms import ShippingForm, PaymentForm
 from .models import ShippingAddress, Order, OrderItem
@@ -103,18 +104,62 @@ def process_order(request):
         # create shipping address from session info
         shipping_address = f"{my_shipping['shipping_address1']}\n{my_shipping['shipping_address2']}\n{my_shipping['shipping_city']}, {my_shipping['shipping_state']}, {my_shipping['shipping_postal_code']}\n{my_shipping['shipping_country']}"
         amount_paid = totals
+
+        # Create an Order
         if request.user.is_authenticated:
             # Logged in
             user = request.user
             # Create order
             create_order = Order(user=user, full_name=full_name, email=email, shipping_address=shipping_address, amount_paid=amount_paid)
             create_order.save()
+
+            # Add order items
+            # Get the order ID
+            order_id = create_order.pk
+
+            # Get product info
+            for product in cart_products():
+                # Get product ID
+                product_id = product.id
+                # Get product price
+                if product.is_sale:
+                    price = product.sale_price
+                else:
+                    price = product.price
+                # Get quantity
+                for key, value in quantities().items():
+                    if int(key) == product.id:
+                        # Create order item
+                        create_order_item = OrderItem(order_id=order_id, product_id=product_id, user=user, quantity=value, price=price)
+                        create_order_item.save()
+
             messages.success(request, "Order successfully placed!")
             return redirect("home")
         else:
             # Not logged in
+            # Create order
             create_order = Order(full_name=full_name, email=email, shipping_address=shipping_address, amount_paid=amount_paid)
             create_order.save()
+            # Add order items
+            # Get the order ID
+            order_id = create_order.pk
+
+            # Get product info
+            for product in cart_products():
+                # Get product ID
+                product_id = product.id
+                # Get product price
+                if product.is_sale:
+                    price = product.sale_price
+                else:
+                    price = product.price
+                # Get quantity
+                for key, value in quantities().items():
+                    if int(key) == product.id:
+                        # Create order item
+                        create_order_item = OrderItem(order_id=order_id, product_id=product_id, quantity=value, price=price)
+                        create_order_item.save()
+
             messages.success(request, "Order successfully placed! You should consider creating an account for faster checkouts.")
             return redirect("home")
     else:
