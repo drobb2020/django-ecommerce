@@ -4,7 +4,7 @@
 #
 #    pip-compile requirements-dev.in
 #
-black==24.4.0
+black==24.4.2
     # via -r requirements-dev.in
 click==8.1.7
     # via black
@@ -16,5 +16,5 @@ pathspec==0.12.1
     # via black
 platformdirs==4.1.0
     # via black
-ruff==0.3.7
+ruff==0.4.2
     # via -r requirements-dev.in

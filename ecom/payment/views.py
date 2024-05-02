@@ -1,8 +1,6 @@
 from cart.cart import Cart
 from django.contrib import messages
-from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
-from store.models import Product
 
 from .forms import ShippingForm, PaymentForm
 from .models import ShippingAddress, Order, OrderItem
@@ -132,6 +130,11 @@ def process_order(request):
                         # Create order item
                         create_order_item = OrderItem(order_id=order_id, product_id=product_id, user=user, quantity=value, price=price)
                         create_order_item.save()
+            # Delete cart
+            for key in list(request.session.keys()):
+                if key == "session_key":
+                    # Delete the key
+                    del request.session[key]
 
             messages.success(request, "Order successfully placed!")
             return redirect("home")
@@ -159,6 +162,11 @@ def process_order(request):
                         # Create order item
                         create_order_item = OrderItem(order_id=order_id, product_id=product_id, quantity=value, price=price)
                         create_order_item.save()
+            # Delete cart
+            for key in list(request.session.keys()):
+                if key == "session_key":
+                    # Delete the key
+                    del request.session[key]
 
             messages.success(request, "Order successfully placed! You should consider creating an account for faster checkouts.")
             return redirect("home")
