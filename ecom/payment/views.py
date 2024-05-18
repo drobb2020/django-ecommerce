@@ -173,3 +173,23 @@ def process_order(request):
     else:
         messages.warning(request, "Access Denied!")
         return redirect('home')
+
+
+def dashboard_shipped(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        orders = Order.objects.filter(shipped=True)
+        context = {'orders': orders}
+        return render(request, 'payment/dashboard_shipped.html', context)
+    else:
+        messages.success(request, "Order Shipped!")
+        return redirect('home')
+
+
+def dashboard_outstanding(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        orders = Order.objects.filter(shipped=False)
+        context = {'orders': orders}
+        return render(request, 'payment/dashboard_outstanding.html', context)
+    else:
+        messages.success(request, "Order Requires Shipping!")
+        return redirect('home')

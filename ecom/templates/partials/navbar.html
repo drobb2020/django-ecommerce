@@ -48,6 +48,24 @@
             <li><a class="dropdown-item" href="{% url 'category' 'science-fiction-books' %}">Science Fiction Books</a></li>
           </ul>
         </li>
+        {% if user.is_superuser %}
+          <li class="nav-item dropdown">
+            <a
+            class="nav-link dropdown-toggle"
+            id="navbarDropdown"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            >Orders Dashboard</a
+            >
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{% url 'dashboard_shipped' %}">Shipped Orders</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="{% url 'dashboard_outstanding' %}">Outstanding Orders</a></li>
+            </ul>
+          </li>
+        {% endif %}
       </ul>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-lg-4">
         {% if user.is_authenticated %}

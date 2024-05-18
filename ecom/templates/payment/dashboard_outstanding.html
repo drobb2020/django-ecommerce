@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}| Outstanding{% endblock title %}
+
+{% block content %}
+
+<header class="bg-dark py-5 m-0">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center text-white">
+      <h1 class="display-4 fw-bolder">Outstanding Shipments</h1>
+      <p class="lead fw-normal text-white-50 mb-0">Outstanding order shipping information.</p>
+    </div>
+  </div>
+</header>
+
+<div class="container my-3">
+  <div class="row align-items-center">
+    <div class="col-md-8 offset-md-2">
+      {% if orders %}
+      <table class="table table-striped table-hover table-bordered my-5">
+        <thead class="table-dark">
+            <tr>
+              <th scope="col">Order</th>
+              <th scope="col">Price</th>
+              <th scope="col">Customer Name</th>
+              <th scope="col">Customer Email</th>
+              <th scope="col">Date Ordered</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in orders %}
+            <tr class="table-dark">
+              <th scope="row">{{ order.id }}</th>
+              <td>$ {{ order.amount_paid }}</td>
+              <td>{{ order.full_name }}</td>
+              <td>{{ order.email }}</td>
+              <td>{{ order.date_ordered }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+      {% else %}
+        <p class="lead text-white">All order have been shipped, good work.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
