@@ -27,16 +27,25 @@
               <th scope="col">Customer Name</th>
               <th scope="col">Customer Email</th>
               <th scope="col">Date Ordered</th>
+              <td scope="col">Shipped</td>
             </tr>
           </thead>
           <tbody>
             {% for order in orders %}
             <tr class="table-dark">
-              <th scope="row">{{ order.id }}</th>
-              <td>$ {{ order.amount_paid }}</td>
+              <td><a href="{% url 'orders' order.id %}" class="cursor-pointer">{{ order.id }}</a></td>
+              <td>${{ order.amount_paid }}</td>
               <td>{{ order.full_name }}</td>
               <td>{{ order.email }}</td>
               <td>{{ order.date_ordered }}</td>
+              <td>
+                <form action="" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="shipping_status" value="true">
+                  <input type="hidden" name="num" value="{{ order.id }}">
+                  <button type="submit" class="btn btn-info btn-sm">Mark Shipped</button>
+                </form>
+              </td>
             </tr>
             {% endfor %}
           </tbody>

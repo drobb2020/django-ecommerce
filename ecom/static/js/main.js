@@ -9,3 +9,7 @@ alerts.forEach(function (alert) {
     bootstrap.Alert.getInstance(alert).close()
   }, +alert_timeout)
 })
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})

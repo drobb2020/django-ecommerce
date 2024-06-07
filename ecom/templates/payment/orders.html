@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load static %} 
+
+{% block title %}| Orders{% endblock title %}
+
+{% block content %}
+
+<header class="bg-dark py-5 m-0">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center text-white">
+      <h1 class="display-4 fw-bolder">Outstanding Order Details</h1>
+      <p class="lead fw-normal text-white-50 mb-0">
+        Outstanding order details.
+      </p>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card my-5">
+          <div class="card-header">
+            Order {{ order.id }} - ${{ order.amount_paid }}
+          </div>
+          <div class="card-body" style="padding-left: 5rem;">
+            <h5 class="card-title">Order Detail</h5>
+            <p class="card-text">Email: {{ order.email }}</p>
+            <p class="card-text">
+              {% if order.date_shipped %}
+                Date Shipped: {{ order.date_shipped }}
+              {% else %}
+                Date Ordered: {{ order.date_ordered }}
+              {% endif %}
+            </p>
+            <p class="card-text">{{ order.full_name }}</p>
+            <p class="card-text">
+                <pre>{{ order.shipping_address }}</pre>
+            </p>
+            <h5 class="card-title">Items List</h5>
+            {% for item in items %}
+                <p class="card-text m-0">{{ item.product }} - {{ item.quantity }} - ${{ item.price }}</p>
+            {% endfor %}
+          </div>
+          <div class="text-center">
+            {% if not order.shipped %}
+            <form action="" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="shipping_status" value="true">
+              <button type="submit" class="btn btn-success my-3" data-toggle="tooltip" data-placement="top" title="Ensure items are ready to ship or have shipped">Mark as Shipped</button>
+            </form>
+            {% else %}
+            <form action="" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="shipping_status" value="false">
+              <button type="submit" class="btn btn-danger my-3" data-toggle="tooltip" data-placement="top" title="Marked it shipped by accident, undo it here!">Mark as Not Shipped</button>
+            </form>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

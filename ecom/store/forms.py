@@ -141,14 +141,14 @@ class UserInfoForm(forms.ModelForm):
         required=False,
     )
     address1 = forms.CharField(
-        label="Address",
+        label="Address 1",
         widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": "Address 1"}
         ),
         required=False,
     )
     address2 = forms.CharField(
-        label="Address",
+        label="Address 2",
         widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": "Address 2"}
         ),
