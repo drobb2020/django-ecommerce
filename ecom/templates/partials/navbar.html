@@ -39,13 +39,14 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{% url 'home' %}">All Products</a></li>
             <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="{% url 'category' 'books' %}">Books</a></li>
-            <li><a class="dropdown-item" href="{% url 'category' 'cell-phones' %}">Cell Phones</a></li>
+            <li><a class="dropdown-item" href="{% url 'category' 'religious-books' %}">Religious Books</a></li>
             <li><a class="dropdown-item" href="{% url 'category' 'clothing' %}">Clothing</a></li>
-            <li><a class="dropdown-item" href="{% url 'category' 'computers' %}">Computers</a></li>
             <li><a class="dropdown-item" href="{% url 'category' 'electronics' %}">Electronics</a></li>
-            <li><a class="dropdown-item" href="{% url 'category' 'programming-books' %}">Programming Books</a></li>
+            <li><a class="dropdown-item" href="{% url 'category' 'software' %}">Software</a></li>
+            <li><a class="dropdown-item" href="{% url 'category' 'coding-books' %}">Programming Books</a></li>
             <li><a class="dropdown-item" href="{% url 'category' 'science-fiction-books' %}">Science Fiction Books</a></li>
+            <li><a class="dropdown-item" href="{% url 'category' 'shoes' %}">Shoes</a></li>
+            <li><a class="dropdown-item" href="{% url 'category' 'watches' %}">Watches</a></li>
           </ul>
         </li>
         {% if user.is_superuser %}

@@ -23,7 +23,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "slug")
+    list_display = ("name", "slug")
     search_fields = ("name", "slug")
     prepopulated_fields = {"slug": ["name"]}
 
@@ -31,7 +31,6 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
     list_display = (
-        "id",
         "first_name",
         "last_name",
         "phone",
@@ -43,12 +42,9 @@ class CustomerAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = (
-        "id",
         "name",
         "price",
         "category",
-        "description",
-        "image",
         "is_sale",
         "sale_price",
     )
@@ -59,7 +55,6 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
-        "id",
         "product",
         "customer",
         "quantity",
