@@ -33,10 +33,14 @@ django-extensions==3.2.3
     # via -r requirements.in
 environs[django]==11.0.0
     # via -r requirements.in
+gunicorn==22.0.0
+    # via -r requirements.in
 marshmallow==3.21.3
     # via environs
 packaging==24.1
-    # via marshmallow
+    # via
+    #   gunicorn
+    #   marshmallow
 pillow==10.3.0
     # via -r requirements.in
 psycopg2==2.9.9
@@ -47,3 +51,5 @@ sqlparse==0.5.0
     # via django
 typing-extensions==4.12.2
     # via dj-database-url
+whitenoise==6.7.0
+    # via -r requirements.in
