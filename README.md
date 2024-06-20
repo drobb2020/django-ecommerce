@@ -141,7 +141,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - drobb2011@gmail.com
+David Robb - drobb2011@gmail.com
 
 Project Link: [https://github.com/drobb2020/django-ecommerce](https://github.com/drobb2020/django-ecommerce)
 
