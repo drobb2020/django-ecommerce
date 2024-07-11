@@ -12,7 +12,7 @@ dj-database-url==2.2.0
     # via environs
 dj-email-url==1.0.6
     # via environs
-django==5.0.4
+django==5.0.7
     # via
     #   -r requirements.in
     #   crispy-bootstrap5
@@ -25,7 +25,7 @@ django-cache-url==3.4.5
     # via environs
 django-cleanup==8.1.0
     # via -r requirements.in
-django-crispy-forms==2.1
+django-crispy-forms==2.2
     # via
     #   -r requirements.in
     #   crispy-bootstrap5
@@ -41,7 +41,7 @@ packaging==24.1
     # via
     #   gunicorn
     #   marshmallow
-pillow==10.3.0
+pillow==10.4.0
     # via -r requirements.in
 psycopg2==2.9.9
     # via -r requirements.in
