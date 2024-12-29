@@ -37,6 +37,7 @@
     "pathspec",
     "platformdirs",
     "productid",
+    "psycopg",
     "pycache",
     "pycodestyle",
     "pyflakes",
