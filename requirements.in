@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 crispy-bootstrap5==2024.10
 Django==5.1.4
-=======
 crispy-bootstrap5==2024.2
-Django==5.0.8
->>>>>>> refs/remotes/origin/main
 django-autoslug==1.9.9
 django-cleanup==9.0.0
 django-crispy-forms==2.3

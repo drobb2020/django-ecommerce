@@ -12,11 +12,7 @@ dj-database-url==2.2.0
     # via environs
 dj-email-url==1.0.6
     # via environs
-<<<<<<< HEAD
 django==5.1.4
-=======
-django==5.0.8
->>>>>>> refs/remotes/origin/main
     # via
     #   -r requirements.in
     #   crispy-bootstrap5
