@@ -35,7 +35,7 @@ environs[django]==14.3.0
     # via -r requirements.in
 gunicorn==23.0.0
     # via -r requirements.in
-marshmallow==3.21.3
+marshmallow==3.26.2
     # via environs
 packaging==24.1
     # via
